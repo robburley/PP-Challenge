@@ -41,4 +41,9 @@ class TicketRepository implements Repository
     {
         return $this->model->query()->whereNotNull('status')->get();
     }
+
+    public function forUser($email)
+    {
+        return $this->model->query()->where('email', $email)->get();
+    }
 }
