@@ -30,15 +30,15 @@ class OpenTicketsTest extends TestCase
         $tickets = Ticket::factory()
             ->count(3)
             ->state(new Sequence(
+                ['created_at' => now()->subMinutes(3)],
                 ['created_at' => now()->subMinute()],
                 ['created_at' => now()->subMinutes(2)],
-                ['created_at' => now()->subMinutes(3)],
             ))
             ->create();
 
         $response = $this->get('/tickets/open');
 
-        $response->assertJson($tickets->toArray());
+        $response->assertJson($tickets->sortBy('created_at')->toArray());
     }
 
     /**
