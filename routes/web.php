@@ -15,9 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $asd = DB::table('users')->first();
-
-    dd($asd);
-
     return view('welcome');
 });
