@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Ticket;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -24,13 +25,20 @@ class OpenTicketsTest extends TestCase
      * @test
      * @return void
      */
-    public function itReturnsOpenTickets(): void
+    public function itReturnsOpenTicketsInOrder(): void
     {
-        $ticket = Ticket::factory()->create();
+        $tickets = Ticket::factory()
+            ->count(3)
+            ->state(new Sequence(
+                ['created_at' => now()->subMinute()],
+                ['created_at' => now()->subMinutes(2)],
+                ['created_at' => now()->subMinutes(3)],
+            ))
+            ->create();
 
         $response = $this->get('/tickets/open');
 
-        $response->assertSee($ticket->subject);
+        $response->assertJson($tickets->toArray());
     }
 
     /**
