@@ -23,7 +23,7 @@ class TicketRepository implements Repository
 
     public function oldest(): ?Ticket
     {
-        return $this->model->oldest()->first();
+        return $this->model->query()->oldest()->first();
     }
 
     public function process(Ticket $ticket): bool
