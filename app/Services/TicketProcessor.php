@@ -4,11 +4,13 @@ namespace App\Services;
 
 use App\Exceptions\TicketProcessorException;
 use App\Models\Ticket;
+use App\Repositories\TicketRepository;
 
 class TicketProcessor
 {
-    public function __construct(private ?Ticket $ticket)
-    {
+    public function __construct(
+        private TicketRepository $ticketRepository, private ?Ticket $ticket
+    ) {
     }
 
     public function setTicket(?Ticket $ticket): static
@@ -27,7 +29,6 @@ class TicketProcessor
     {
         throw_if(!$this->ticket, new TicketProcessorException('No ticket set'));
 
-        // This would be done via a repository which would be mockable in a unit test
-        return $this->ticket->update(['status' => 1]);
+        return $this->ticketRepository->process($this->ticket);
     }
 }

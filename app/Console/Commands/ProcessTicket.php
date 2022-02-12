@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Ticket;
+use App\Repositories\TicketRepository;
 use App\Services\TicketProcessor;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -23,15 +23,10 @@ class ProcessTicket extends Command
      */
     protected $description = 'Processes a single ticket in chronological order';
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle(TicketProcessor $processor)
+    public function handle(TicketProcessor $processor, TicketRepository $ticketRepository): int
     {
         try {
-            $ticket = Ticket::oldest()->first();
+            $ticket = $ticketRepository->oldest();
 
             if ($ticket) {
                 $processor->setTicket($ticket)->process();
