@@ -34,12 +34,12 @@ class TicketRepository implements Repository
 
     public function open(): Collection|array
     {
-        return $this->model->query()->whereNull('status')->get();
+        return $this->model->query()->whereNull('processed_at')->get();
     }
 
     public function closed(): Collection|array
     {
-        return $this->model->query()->whereNotNull('status')->get();
+        return $this->model->query()->whereNotNull('processed_at')->get();
     }
 
     public function forUser($email)

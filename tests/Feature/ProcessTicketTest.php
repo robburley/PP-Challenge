@@ -29,11 +29,11 @@ class ProcessTicketTest extends TestCase
     {
         Ticket::factory()->create();
 
-        $this->assertDatabaseHas('tickets', ['status' => null]);
+        $this->assertDatabaseHas('tickets', ['processed_at' => null]);
 
         $this->artisan('ticket:process')->assertSuccessful();
 
-        $this->assertDatabaseMissing('tickets', ['status' => null]);
+        $this->assertDatabaseMissing('tickets', ['processed_at' => null]);
     }
 
     /**

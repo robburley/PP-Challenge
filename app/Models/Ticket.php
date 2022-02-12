@@ -19,11 +19,11 @@ class Ticket extends Model
 
     public function getStatusAttribute(): bool
     {
-        return !is_null($this->attributes['status']);
+        return !is_null($this->attributes['processed_at']);
     }
 
     public function setStatusAttribute(?bool $value): void
     {
-        $this->attributes['status'] = $value ? now() : null;
+        $this->attributes['processed_at'] = $value ? now() : null;
     }
 }

@@ -19,11 +19,14 @@ class CreateTicketsTable extends Migration
             $table->text('content');
             $table->string('name');
             $table->string('email');
-            //I use timestamps for any bool field to allow for situations in the future
-            $table->timestamp('status')->nullable();
+            /*
+             * I use timestamps for any bool field to allow for situations in the future
+             * and use accessors to get the bool value
+             */
+            $table->timestamp('processed_at')->nullable();
             $table->timestamps();
 
-            $table->index(['status']);
+            $table->index(['processed_at']);
             $table->index(['email']);
         });
     }

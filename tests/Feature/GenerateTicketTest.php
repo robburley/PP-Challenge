@@ -27,6 +27,6 @@ class GenerateTicketTest extends TestCase
         $this->artisan('ticket:generate')->assertSuccessful();
 
         $this->assertDatabaseCount('tickets', 1);
-        $this->assertDatabaseHas('tickets', ['status' => null]);
+        $this->assertDatabaseHas('tickets', ['processed_at' => null]);
     }
 }
