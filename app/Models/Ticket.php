@@ -9,6 +9,8 @@ class Ticket extends Model
 {
     use HasFactory;
 
+    protected $appends = ['status'];
+
     protected $fillable = [
         'subject',
         'content',
