@@ -22,6 +22,9 @@ class CreateTicketsTable extends Migration
             //I use timestamps for any bool field to allow for situations in the future
             $table->timestamp('status')->nullable();
             $table->timestamps();
+
+            $table->index(['status']);
+            $table->index(['email']);
         });
     }
 
