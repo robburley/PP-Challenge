@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\Repository;
 use App\Models\Ticket;
+use Illuminate\Database\Eloquent\Collection;
 
 /*
  * In a real world situation this would extend from a base repository
@@ -29,5 +30,10 @@ class TicketRepository implements Repository
     public function process(Ticket $ticket): bool
     {
         return $ticket->update(['status' => 1]);
+    }
+
+    public function open(): Collection|array
+    {
+        return $this->model->query()->whereNull('status')->get();
     }
 }
