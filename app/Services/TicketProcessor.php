@@ -27,6 +27,7 @@ class TicketProcessor
     {
         throw_if(!$this->ticket, new TicketProcessorException('No ticket set'));
 
+        // This would be done via a repository which would be mockable in a unit test
         return $this->ticket->update(['status' => 1]);
     }
 }
