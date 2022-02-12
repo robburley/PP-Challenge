@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +11,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+use App\Http\Controllers\ClosedTicketsController;
+use App\Http\Controllers\OpenTicketsController;
+use App\Http\Controllers\TicketStatisticsController;
+use App\Http\Controllers\Users\TicketsController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/tickets/open', [OpenTicketsController::class, 'index']);
+Route::get('/tickets/closed', [ClosedTicketsController::class, 'index']);
+
+Route::get('/stats', [TicketStatisticsController::class, 'index']);
+
+Route::prefix('users')
+    ->group(function () {
+        Route::get('/{email}/tickets', [TicketsController::class, 'index']);
+    });
