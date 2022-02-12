@@ -36,4 +36,9 @@ class TicketRepository implements Repository
     {
         return $this->model->query()->whereNull('status')->get();
     }
+
+    public function closed(): Collection|array
+    {
+        return $this->model->query()->whereNotNull('status')->get();
+    }
 }

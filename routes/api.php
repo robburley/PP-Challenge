@@ -16,3 +16,4 @@ use App\Http\Controllers\OpenTicketsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/tickets/open', [OpenTicketsController::class, 'index']);
+Route::get('/tickets/closed', [ClosedTicketsController::class, 'index']);
